@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Day Card</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #fae1dd;
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+        }
+
+        .valentines {
+            position: relative;
+            cursor: pointer;
+            top: 50px;
+            animation: float 2s linear infinite;
+            will-change: transform;
+        }
+
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #f08080;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            width: 212px;
+            height: 212px;
+            transform: rotate(-135deg);
+            background-color: #f08080;
+            top: -105px;
+            left: 44px;
+            clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+            border-radius: 10% 0 0 0;
+            z-index: 11;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .card {
+            position: absolute;
+            background-color: #eae2b7;
+            height: 170px;
+            width: 270px;
+            top: 5px;
+            left: 15px;
+            transition: transform 1s ease-in-out;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            border: 2px dotted black;
+            width: 240px;
+            height: 140px;
+            left: 12px;
+            top: 12px;
+        }
+
+        .text {
+            position: absolute;
+            text-align: center;
+            font-family: cursive;
+            font-size: 28px;
+            left: 85px;
+            top: 19px;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .front {
+            position: absolute;
+            border-right: 180px solid #f4978e;
+            border-bottom: 100px solid transparent;
+            border-top: 95px solid transparent;
+            left: 120px;
+            top: 5px;
+            z-index: 10;
+        }
+
+        .front:before {
+            position: absolute;
+            content: "";
+            border-left: 300px solid #f8ad9d;
+            border-top: 195px solid transparent;
+            left: -120px;
+            top: -95px;
+            width: 0;
+            height: 0;
+        }
+
+        .shadow {
+            position: absolute;
+            height: 25px;
+            width: 330px;
+            background-color: rgba(0, 0, 0, 0.3);
+            top: 265px;
+            left: -15px;
+            border-radius: 50%;
+            opacity: 50%;
+            animation: scale 2s linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        @keyframes scale {
+            0%, 100% { transform: scale(0); }
+            50% { transform: scaleX(0.5); }
+        }
+
+        /* Hiệu ứng mở thư */
+        .valentines.open .card {
+            transform: translateY(-100px);
+        }
+
+        .valentines.open .envelope::before {
+            transform: rotate(45deg);
+            z-index: -1;
+        }
+
+        /* Hiệu ứng phóng to */
+        .valentines.expand .card {
+            transform: scale(1.2);
+            z-index: 11;
+        }
+
+        .valentines.expand .text {
+            font-size: 16px;
+            max-width: 240px;
+            left: 10px;
+        }
+
+        .valentines.expand .envelope::before {
+            opacity: 0;
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <audio autoplay loop>
+            <source src="nice-rhodes-200373.mp3" type="audio/mpeg">
+        </audio>
+        <div class="valentines" onclick="toggleCard()">
+            <div class="envelope"></div>
+            <div class="front"></div>
+            <div class="card">
+                <div class="text">Happy<br>Women's<br>Day!</div>
+            </div>
+        </div>
+        <div class="shadow"></div>
+    </div>
+
+    <script>
+        let opened = false;
+
+        function toggleCard() {
+            const valentines = document.querySelector(".valentines");
+            const text = document.querySelector(".text");
+
+            if (!opened) {
+                valentines.classList.add("open");
+                setTimeout(() => {
+                    valentines.classList.add("expand");
+                    text.innerHTML = "Chúc bạn 8/3 thật vui vẻ, luôn mạnh mẽ, tự tin và gặp nhiều may mắn trong cuộc sống. Nhớ yêu bản thân nhiều hơn (ngủ sớm, không bỏ bữa) nha!";
+                }, 2000);
+            } else {
+                valentines.classList.remove("expand", "open");
+                text.innerHTML = "Happy<br>Women's<br>Day!";
+            }
+
+            opened = !opened;
+        }
+    </script>
+</body>
+
+</html>
